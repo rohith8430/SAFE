@@ -2,19 +2,15 @@ services:
   - type: web
     name: safespot-community-map
     runtime: python
-    plan: starter
+    plan: free
     buildCommand: pip install -r requirements.txt
     startCommand: gunicorn app:app
     healthCheckPath: /
-    disk:
-      name: safespot-data
-      mountPath: /var/data
-      sizeGB: 1
     envVars:
       - key: DATA_DIR
-        value: /var/data
+        value: /tmp/safespot
       - key: UPLOAD_FOLDER
-        value: /var/data/uploads
+        value: /tmp/safespot/uploads
       - key: FLASK_SECRET_KEY
         generateValue: true
       - key: ADMIN_PASSWORD

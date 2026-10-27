@@ -26,13 +26,15 @@ A Flask and SQLite community safety reporting app built from the project brief. 
 The map tiles and Leaflet library load from OpenStreetMap and unpkg, so those external services need to be reachable in the browser. Uploaded report images are limited to PNG/JPG/JPEG/WEBP and 5 MB. `safespot.db` and uploaded images are runtime data and are intentionally not included in version control.
 
 
-## Deploy on Render
+## Deploy on Render (free)
 
-1. Push this project to a GitHub repository.
+1. Push this project to GitHub.
 2. In Render, choose **New → Blueprint**, connect the repository, and select `render.yaml`.
-3. Set the prompted `ADMIN_PASSWORD` secret in Render, then deploy.
+3. Set the prompted `ADMIN_PASSWORD` secret, then deploy the Free web service.
 
-The Blueprint creates a persistent disk at `/var/data` for SQLite and uploaded photos. The disk uses the Render Starter service plan. Keep the disk attached to preserve report data and images between deploys. Leaflet and map tiles are served by external providers, so users need internet access for the map.
+This setup uses Render's Free plan and does not attach a persistent disk or require paid resources. Free web services have an ephemeral filesystem: the SQLite database and uploaded photos can be erased whenever the service spins down, restarts, or redeploys. Free services can also take about a minute to wake after 15 minutes without traffic. This setup is suitable for a demo; use persistent external storage if reports must be retained.
+
+The map loads Leaflet and OpenStreetMap tiles from external services, so browsers need internet access for map tiles.
 ## Project structure
 
 - `app.py` — Flask routes, validation, SQLite storage, admin session
